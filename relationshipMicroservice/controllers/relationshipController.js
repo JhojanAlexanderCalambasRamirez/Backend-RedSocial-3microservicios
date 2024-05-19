@@ -1,7 +1,6 @@
 const relationshipModel = require('../models/relationshipModel');
 
 
-
 exports.followUser = async (req, res) => {
   const { usuarioP_id, usuarioS_id } = req.body;
   try {
@@ -52,4 +51,3 @@ exports.getFollowingMessages = async (req, res) => {
     res.status(500).json({ error: 'Error de servidor' });
   }
 };
-

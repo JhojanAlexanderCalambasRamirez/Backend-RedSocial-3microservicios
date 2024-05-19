@@ -25,4 +25,3 @@ exports.getFollowingByUserId = async (usuario_id) => {
     throw new Error('Error al obtener seguidos del usuario en la base de datos: ' + error.message);
   }
 };
-
