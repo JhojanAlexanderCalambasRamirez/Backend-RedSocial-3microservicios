@@ -1,5 +1,6 @@
 const pool = require('../config').pool;
 
+
 exports.createMessage = async (usuario_id, contenido) => {
   try {
     await pool.query('INSERT INTO mensajes (usuario_id, contenido) VALUES (?, ?)', [usuario_id, contenido]);
@@ -26,4 +27,3 @@ exports.getMessagesByUserId = async (usuario_id) => {
     throw new Error('Error al obtener mensajes del usuario en la base de datos: ' + error.message);
   }
 };
-

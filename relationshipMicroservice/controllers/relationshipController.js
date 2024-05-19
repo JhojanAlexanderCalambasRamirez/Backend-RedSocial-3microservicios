@@ -1,5 +1,7 @@
 const relationshipModel = require('../models/relationshipModel');
 
+
+
 exports.followUser = async (req, res) => {
   const { usuarioP_id, usuarioS_id } = req.body;
   try {
@@ -29,6 +31,24 @@ exports.getFollowing = async (req, res) => {
     res.status(200).json(following);
   } catch (error) {
     console.error('Error de base de datos:', error);
+    res.status(500).json({ error: 'Error de servidor' });
+  }
+};
+
+exports.getFollowingMessages = async (req, res) => {
+  const { usuario_id } = req.params;
+  try {
+    const following = await relationshipModel.getFollowingByUserId(usuario_id);
+    const messages = [];
+
+    for (const follow of following) {
+      const userMessages = await messageModel.getMessagesByUserId(follow.usuarioS_id);
+      messages.push(...userMessages);
+    }
+
+    res.status(200).json(messages);
+  } catch (error) {
+    console.error('Error al obtener los mensajes de los usuarios seguidos:', error);
     res.status(500).json({ error: 'Error de servidor' });
   }
 };

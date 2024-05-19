@@ -1,5 +1,19 @@
 const userModel = require('../models/userModel');
 
+exports.login = async (req, res) => {
+  const { usuario, password } = req.body;
+  try {
+      console.log('Intentando iniciar sesión con:', { usuario, password });
+      const user = await userModel.getUserByCredentials(usuario, password);
+      if (!user) {
+          return res.status(401).json({ error: 'Credenciales inválidas' });
+      }
+      res.status(200).json(user);
+  } catch (error) {
+      console.error('Error al iniciar sesión:', error);
+      res.status(500).json({ error: 'Error interno del servidor' });
+  }
+};
 
 
 exports.getAllUsers = async (req, res) => {

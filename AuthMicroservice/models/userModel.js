@@ -12,3 +12,7 @@ exports.createUser = async (nombre_completo, usuario, password, rol) => {
     await pool.query('INSERT INTO usuarios (nombre_completo, usuario, password, rol) VALUES (?, ?, ?, ?)', [nombre_completo, usuario, password, rol]);
 };
 
+exports.getUserById = async (userId) => {
+  const [rows] = await pool.query('SELECT id, nombre_completo, usuario, password, rol FROM usuarios WHERE id = ?', [userId]);
+  return rows[0];
+};
