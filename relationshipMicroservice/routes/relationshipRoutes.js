@@ -12,6 +12,6 @@ router.get('/followers/:usuario_id', relationshipController.getFollowers);
 router.get('/following/:usuario_id', relationshipController.getFollowing);
 
 // Ruta para obtener los mensajes de los usuarios que un usuario sigue
-router.get('/following/:usuario_id/messages', relationshipController.getFollowingMessages);
+router.get('/following/:usuario_id/messages', relationshipController.getMessagesByFollowing);
 
 module.exports = router;

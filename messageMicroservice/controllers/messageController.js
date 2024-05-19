@@ -32,13 +32,14 @@ exports.getAllMessages = async (req, res) => {
         res.status(500).json({ error: 'Error interno del servidor' });
     }
 };
+// Controlador para obtener mensajes por usuario_id
 exports.getMessagesByUserId = async (req, res) => {
     const { usuario_id } = req.params;
     try {
-      const [rows] = await pool.query('SELECT * FROM mensajes WHERE usuario_id = ?', [usuario_id]);
-      res.status(200).json(rows);
+        const messages = await messageModel.getMessagesByUserId(usuario_id);
+        res.status(200).json(messages);
     } catch (error) {
-      console.error('Error al obtener mensajes del usuario en la base de datos:', error);
-      res.status(500).json({ error: 'Error al obtener mensajes del usuario' });
+        console.error('Error al obtener mensajes del usuario en la base de datos:', error);
+        res.status(500).json({ error: 'Error al obtener mensajes del usuario' });
     }
-  };
+};
